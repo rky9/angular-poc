@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-poc"
+    }
+  },
+  "defaultProject": "angular-poc",
+  "cli": {
+    "analytics": false
+  }
 }
