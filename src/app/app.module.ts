@@ -9,7 +9,8 @@ import { FooterComponent } from './footer/footer.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UsersComponent } from './users/users.component';
-
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { DataTablesModule } from 'angular-datatables';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,12 +18,14 @@ import { UsersComponent } from './users/users.component';
     NavigationComponent,
     FooterComponent,
     ContactUsComponent,
-    UsersComponent
+    UsersComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
