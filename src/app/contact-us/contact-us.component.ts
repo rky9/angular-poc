@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormBuilder} from '@angular/forms';
 import { CommonService } from '../shared/common.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { CommonService } from '../shared/common.service';
 export class ContactUsComponent implements OnInit {
   contactTitle: string = 'Contact Us'
   formdata:FormGroup;
-  constructor(private _commonService: CommonService) {
+  constructor(private _commonService: CommonService ,private fb: FormBuilder) {
     this._commonService.pageTitle.subscribe(newtitle => {
       this.contactTitle = newtitle
     })
@@ -18,7 +18,7 @@ export class ContactUsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.formdata = new FormGroup({
+    this.formdata = this.fb.group({
       'fname': new FormControl("", [Validators.required,Validators.minLength(3),Validators.maxLength(10)],),
       'lname': new FormControl("", [Validators.required,Validators.minLength(3),Validators.maxLength(10)]),
       'email': new FormControl("", [Validators.required, Validators.email]),
