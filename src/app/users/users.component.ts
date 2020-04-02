@@ -1,53 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonService } from '../shared/common.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpResponse } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
-class Person {
-  id: number;
-  firstName: string;
-  lastName: string;
-}
-
-class DataTablesResponse {
-  data: any[];
-  draw: number;
-  recordsFiltered: number;
-  recordsTotal: number;
-}
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss']
 })
-export class UsersComponent implements OnInit {
+
+export class UsersComponent implements OnInit, OnDestroy {
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject();
   userTitle: string = 'Users';
   formdata: FormGroup;
-  dtOptions: DataTables.Settings = {};
-  employeeInfo:{};
-  persons: Person[];
-
-  constructor(private _commonService: CommonService, private http: HttpClient) {
+  employeeInfo: {};
+  constructor(private _commonService: CommonService, private http:HttpClient) {
     this._commonService.pageTitle.subscribe(newtitle => {
       this.userTitle = newtitle
+      this.dtTrigger.next();
     })
     this._commonService.pageTitle.next(this.userTitle)
   }
 
   ngOnInit() {
-    this.formdata = new FormGroup({
-      'email': new FormControl("", [Validators.required, Validators.email]),
-    });
-    this._commonService.getUsers().subscribe(data=>{
-      console.log(data)
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 10
+    };
+    this._commonService.getUsers().subscribe(data => {
       this.employeeInfo = data;
+      this.dtTrigger.next();
     })
-   
 
-    
+  
   }
-  viewDetails(){
+  ngOnDestroy(): void {
+    // Do not forget to unsubscribe the event
+  
+  }
 
+  
+  viewDetaisl() {
   }
+
 }

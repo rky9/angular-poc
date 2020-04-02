@@ -2,56 +2,34 @@
   <div class="col-4">
     <div class="form-horizontal">
       <div class="form-group">
-          <label for="email">Search by Email:</label>
-          <input type="email" class="form-control" #email placeholder="Enter Email" name="email">
-          
-        </div>
-        
-      <button type="button" class="btn btn-primary">Submit</button>
+        <label for="email">Search by Email:</label>
+        <input type="email" class="form-control" #email placeholder="Enter Email" name="email">
+
       </div>
+
+      <button type="button" class="btn btn-primary">Submit</button>
+    </div>
   </div>
   <div class="col-8">
-    <!-- <table datatable [dtOptions]="dtOptions"  class="row-border hover">
+    <table datatable class="row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
       <thead>
         <tr>
           <th>ID</th>
           <th>First name</th>
           <th>Last name</th>
-          <th>email</th>
-          <td>view</td>
+          <th>Email</th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let emp of employeeInfo">
-          <td>{{emp.id}}</td>
-          <td>{{emp.firstname}}</td>
-          <td>{{emp.lastname}}</td>
-          <td>{{emp.email}}</td>
-          <td>view</td>
-        </tr>
-        
-      </tbody>
-    </table> -->
-    <table datatable [dtOptions]="dtOptions" class="row-border hover">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th>
-     
-    </tr>
-  </thead>
-  <tbody >
-      <tr *ngFor="let emp of employeeInfo">
-          <td>{{ emp.id }}</td>
-          <td>{{ emp.firstname }}</td>
-          <td>{{ emp.lastname }}</td>
-          <td>{{ emp.email }}</td>
-         
+    <tbody>
+      <tr *ngFor="let user of employeeInfo">
+        <td>{{user.id}}</td>
+        <td>{{user.firstname}}</td>
+        <td>{{user.lastname}}</td>
+        <td>{{user.email}}</td>
       </tr>
-  </tbody>
-   
-</table>
+    </tbody>
+     
+    </table>
+    
   </div>
 </div>
