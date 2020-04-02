@@ -14,17 +14,21 @@ declare var $;
 })
 
 export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild(DataTableDirective, {static: false})
+  @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
-  
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   userTitle: string = 'Users';
   formdata: FormGroup;
-  message:string = "hi"
+  message: string = "hi"
   employeeInfo: {};
-  empDetails:{}
-  constructor(private _commonService: CommonService, private http:HttpClient, 
+  empDetails: {}
+  empId;
+  empfName;
+  emplName;
+  empEmail;
+  constructor(private _commonService: CommonService, private http: HttpClient,
     private renderer: Renderer2, private router: Router) {
     this._commonService.pageTitle.subscribe(newtitle => {
       this.userTitle = newtitle
@@ -45,7 +49,11 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
         $('td', row).bind('click', () => {
           self.someClickHandler(data);
           this.empDetails = data;
-          console.log("edfdf", this.empDetails)
+          this.empId = this.empDetails[0];
+          this.empfName = this.empDetails[1];
+          this.emplName = this.empDetails[2];
+          this.empEmail = this.empDetails[3];
+          console.log(this.empDetails)
         });
         return row;
       }
@@ -55,7 +63,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
       this.dtTrigger.next();
     })
 
-  
+
   }
   ngAfterViewInit(): void {
     this.renderer.listen('document', 'click', (event) => {
@@ -70,7 +78,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
     this.dtTrigger.unsubscribe();
   }
 
-  
+
   viewDetaisl() {
   }
 

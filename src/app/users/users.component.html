@@ -11,9 +11,10 @@
     </div>
   </div>
   <div class="col-8">
-    <p class="text-danger" *ngFor="let e of empDetails">You clicked on: <strong>{{ e[0] }}</strong>
-      <strong>{{ e[1] }}</strong><strong>{{ e[2] }}</strong><strong>{{ e[3] }}</strong>
-    </p>
+   <div>ID: {{empId}}</div>
+   <div>First Name: {{empfName}}</div>
+   <div>Last Name: {{emplName}}</div>
+   <div>Email: {{empEmail}}</div>
 <br />
     <table datatable class="row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
       <thead>
