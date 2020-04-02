@@ -11,6 +11,10 @@
     </div>
   </div>
   <div class="col-8">
+    <p class="text-danger" *ngFor="let e of empDetails">You clicked on: <strong>{{ e[0] }}</strong>
+      <strong>{{ e[1] }}</strong><strong>{{ e[2] }}</strong><strong>{{ e[3] }}</strong>
+    </p>
+<br />
     <table datatable class="row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
       <thead>
         <tr>
@@ -28,8 +32,15 @@
         <td>{{user.email}}</td>
       </tr>
     </tbody>
-     
+    <tfoot>
+      <tr>
+        <th><input type="text" placeholder="Search ID" name="search-id"/></th>
+        <th><input type="text" placeholder="Search first name" name="search-first-name"/></th>
+        <th><input type="text" placeholder="Search last name" name="search-last-name"/></th>
+      </tr>
+    </tfoot>
     </table>
     
   </div>
 </div>
+
