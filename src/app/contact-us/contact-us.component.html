@@ -15,7 +15,7 @@
       </div>
       <div class="form-group">
         <label for="mobile">Mobile:</label>
-        <input type="text" class="form-control" #mobile placeholder="Enter Mobile" name="mobile" formControlName="mobile">
+        <input type="text" pattern="[0-9]*" class="form-control" #mobile placeholder="Enter Mobile" name="mobile" formControlName="mobile">
         <small class="text-danger" *ngIf="!formdata.get('mobile').valid && formdata.get('mobile').touched">Mobile No is not valid</small>
       </div>
     <button type="submit" [disabled]="!formdata.valid" class="btn btn-primary">Submit</button>

@@ -13,7 +13,7 @@ declare var $;
   styleUrls: ['./users.component.scss']
 })
 
-export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
+export class UsersComponent implements OnInit, OnDestroy {
   @ViewChild(DataTableDirective, { static: false })
   datatableElement: DataTableDirective;
 
@@ -36,9 +36,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
     })
     this._commonService.pageTitle.next(this.userTitle)
   }
-  someClickHandler(info: any): void {
-    console.log(info.id + ' - ' + info.firstname + ' - ' + info.lastname + ' - ' + info.email);
-  }
+ 
   ngOnInit() {
     this.dtOptions = {
       pagingType: 'full_numbers',
@@ -47,7 +45,6 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
         const self = this;
         $('td', row).unbind('click');
         $('td', row).bind('click', () => {
-          self.someClickHandler(data);
           this.empDetails = data;
           this.empId = this.empDetails[0];
           this.empfName = this.empDetails[1];
@@ -65,13 +62,7 @@ export class UsersComponent implements OnInit, OnDestroy, AfterViewInit {
 
 
   }
-  ngAfterViewInit(): void {
-    this.renderer.listen('document', 'click', (event) => {
-      if (event.target.hasAttribute("view-person-id")) {
-        this.router.navigate(["/person/" + event.target.getAttribute("view-person-id")]);
-      }
-    });
-  }
+ 
 
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
