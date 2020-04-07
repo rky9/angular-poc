@@ -3,11 +3,8 @@
     <div class="form-horizontal">
       <div class="form-group">
         <label for="email">Search by Email:</label>
-        <input type="email" class="form-control" #email placeholder="Enter Email" name="email">
-
+        <input type="email"  class="form-control" placeholder="Enter Email" name="email" [(ngModel)]="searchTerm">
       </div>
-
-      <button type="button" class="btn btn-primary">Submit</button>
     </div>
   </div>
   <div class="col-8">
@@ -38,7 +35,7 @@
     </div>
 
     <br />
-    <table datatable class="row-border hover" [dtOptions]="dtOptions" [dtTrigger]="dtTrigger">
+    <table class="table table-striped table-bordered table-sm row-border hover"  datatable class="row-border hover" [dtOptions]="dtOptions"  [dtTrigger]="dtTrigger">
       <thead>
         <tr>
           <th>ID</th>
@@ -49,7 +46,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of employeeInfo">
+        <tr *ngFor="let user of filteredemployees" >
           <td>{{user.id}}</td>
           <td>{{user.firstname}}</td>
           <td>{{user.lastname}}</td>

@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 
 import { DataTableDirective } from 'angular-datatables';
 import { Router } from '@angular/router';
+import { UserService } from './user-service/user.service';
 declare var $;
 @Component({
   selector: 'app-users',
@@ -14,33 +15,63 @@ declare var $;
 })
 
 export class UsersComponent implements OnInit, OnDestroy {
-  @ViewChild(DataTableDirective, { static: false })
-  datatableElement: DataTableDirective;
+  data$ = new Subject<any>();
+  data;
+
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject();
   userTitle: string = 'Users';
   formdata: FormGroup;
-  message: string = "hi"
-  employeeInfo: {};
+  employees: any = [];
+  filteredemployees: any = [];
+  private _searchTerm: string;
+
+  get searchTerm(): string {
+    return this._searchTerm
+  }
+  set searchTerm(value: string) {
+    this._searchTerm = value;
+    this.filteredemployees = this.filterEmployees(value)
+    console.log(this.filteredemployees)
+  }
+
+  filterEmployees(searchString: string) {
+    if (searchString === undefined) return searchString;
+    return this.employees.filter(employee => employee.email.toLowerCase().indexOf(searchString.toLowerCase()) !== -1)
+  }
+
   empDetails: {}
   empId;
   empfName;
   emplName;
   empEmail;
-  constructor(private _commonService: CommonService, private http: HttpClient,
+  sortBy: string = 'email';
+  constructor(private http: HttpClient, private _userService: UserService,
     private renderer: Renderer2, private router: Router) {
-    this._commonService.pageTitle.subscribe(newtitle => {
-      this.userTitle = newtitle
-      this.dtTrigger.next();
-    })
-    this._commonService.pageTitle.next(this.userTitle)
   }
- 
+
   ngOnInit() {
+    this.userInfodata();
+    this.getUserData();
+  }
+  getUserData() {
+    this._userService.getUsers().subscribe(
+      data => {
+        this.employees = data;
+        this.filteredemployees = this.employees;
+        console.log(this.filteredemployees)
+        this.dtTrigger.next();
+      }, err => { console.log('Error occured') })
+  }
+
+  userInfodata() {
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
+      processing: true,
+      order: [0, 'asc'],
+
       rowCallback: (row: Node, data: any[] | Object, index: number) => {
         const self = this;
         $('td', row).unbind('click');
@@ -55,22 +86,10 @@ export class UsersComponent implements OnInit, OnDestroy {
         return row;
       }
     };
-    this._commonService.getUsers().subscribe(data => {
-      this.employeeInfo = data;
-      this.dtTrigger.next();
-    })
-
-
   }
- 
 
   ngOnDestroy(): void {
-    // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
-  }
-
-
-  viewDetaisl() {
   }
 
 }

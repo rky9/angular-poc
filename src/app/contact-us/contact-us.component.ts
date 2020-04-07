@@ -9,23 +9,24 @@ import { CommonService } from '../shared/common.service';
 })
 export class ContactUsComponent implements OnInit {
   contactTitle: string = 'Contact Us'
-  formdata:FormGroup;
-  constructor(private _commonService: CommonService ,private fb: FormBuilder) {
-    this._commonService.pageTitle.subscribe(newtitle => {
-      this.contactTitle = newtitle
-    })
-    this._commonService.pageTitle.next(this.contactTitle)
+  contactdata:FormGroup;
+  constructor(private fb: FormBuilder) {
   }
 
   ngOnInit(): void {
-    this.formdata = this.fb.group({
+   this.formValidation();
+  }
+
+  formValidation(){
+    this.contactdata = new FormGroup({
       'fname': new FormControl("", [Validators.required,Validators.minLength(3),Validators.maxLength(10)],),
       'lname': new FormControl("", [Validators.required,Validators.minLength(3),Validators.maxLength(10)]),
       'email': new FormControl("", [Validators.required, Validators.email]),
       'mobile': new FormControl("", [Validators.required,Validators.minLength(10),Validators.maxLength(10)])
    });
   }
+  
   onSubmit(){
-    console.log(this.formdata.value)
+    console.log(this.contactdata.value)
   }
 }

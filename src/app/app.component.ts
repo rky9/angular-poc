@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonService } from './shared/common.service';
 
 @Component({
   selector: 'app-root',
@@ -7,13 +6,5 @@ import { CommonService } from './shared/common.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-pageTitle;
-  constructor(private _commonService: CommonService) {
-    this._commonService.pageTitle.subscribe(title => {
-      this.pageTitle = title
-    })
-  }
-  
-  
-
+  constructor() {}
 }
